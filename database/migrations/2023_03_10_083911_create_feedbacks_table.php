@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('feedbacks', function (Blueprint $table) {
             $table->id();
-            $table->string('Message');
-          
+            $table->text('message');
+    
             $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
         });

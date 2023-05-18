@@ -61,6 +61,7 @@
             font-size: large;
             font-weight: 600;
             margin-left: 20px;
+            width: 120px;
         }
 
         .collapse table {
@@ -109,7 +110,7 @@
         }
 
         .shop-bag {
-           
+
             font-size: 28px;
             color: #1f4975;
         }
@@ -118,14 +119,29 @@
             background: #0d468e;
             margin-top: 10px;
         }
+
+        .total_deg {
+            font-size: 20px;
+            padding: 40px;
+        }
+
+        .total-price span {
+            color: #f16038;
+
+
+        }
+
+        .total-price h4 {
+            color: #1f4975;
+        }
     </style>
 </head>
 
 <body>
 
-    <nav class="navbar navbar-expand-md  fixed-top navbar-light bg-white shadow-sm ">
+    <nav class="navbar navbar-expand-md  fixed-top navbar-light bg-white shadow-sm " id="tab-navbar">
         <div class="container">
-            <a href="#" class="navbar-brand">
+            <a href="/" class="navbar-brand">
                 <div data-aos="flip-up">
                     <img src="{{ asset('user/images/Logo.jpg') }}" alt="logo" style="height: 80px">
                 </div>
@@ -155,43 +171,43 @@
                             </li>
                         @endif
                     @else
-                        @role('Admin')
-                            <li><a class="nav-link" href="{{ route('users.index') }}"> Users</a></li>
-                            <li><a class="nav-link" href="{{ route('roles.index') }}"> Role</a></li>
-                            <li><a class="nav-link" href="{{ route('products.index') }}"> Product</a></li>
-                            {{-- <li><a class="nav-link" href="{{ route('admin.showorder')}}"> Orders</a></li> --}}
+                        
+                    @if(Auth::user()->hasRole('Vendor'))
+                        <li><a class="nav-link" href="{{ route('admin.showorder') }}"> Orders</a></li>
+                        <li><a class="nav-link" href="{{ route('products.index') }}"> Product</a></li>
+                        <li><a class="nav-link" href="{{ route('productcategory.index') }}"> Product Category</a></li>
 
-                            <li><a class="nav-link" href="{{ route('productcategory.index') }}"> Product Category</a>
-                            </li>
-                        @else
-                            <div class="search">
-                                <ul class="navbar-nav">
-                                    <div class="row">
-                                        <div class="col-md-8 col-lg-8" style="margin-right: 80px">
-                                            <div class="d-flex form-inputs">
-                                                <form method="get" action="/home" style="width: 100%">
-                                                    <input class="form-control" name="search" type="text"
-                                                        placeholder="Search any product..." value="{{ request('search') }}">
-                                                    <span class="glass"> <i class="fa-solid fa-magnifying-glass"></i> </span>
-                                                </form>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-2 col-lg-2">
-                                            <div class="d-flex d-none d-md-flex flex-row align-items-center">
-                                                <li class="nav-item mt-5" style="position: absolute;margin-left:530px;">
-                                                    <a  class="nav-link " href="{{url('showcart')}}">
-                                                        <span class="shop-bag"><i class="fa-solid fa-cart-shopping"></i></span>
-                                                       [ {{ $count }}]
-                                                    </a>
-                                                </li>
-
-                                            </div>
+                    @elseif(Auth::user()->hasRole('Admin'))
+                        <li><a class="nav-link" href="{{ route('roles.index') }}">Roles</a></li>
+                        <li><a class="nav-link" href="{{ route('users.index') }}">Users</a></li>
+                    
+                    @elseif(Auth::user()->hasRole('Technician'))
+                        <li><a class="nav-link" href="{{ route('technician.index') }}">Hires</a></li>
+                    @else
+                           
+                        <div class="search"
+                            style="position: absolute;
+                            z-index: 9999;
+                            margin-left: 640px;
+                            margin-top: 30px;"> 
+                            <ul class="navbar-nav">
+                                <div class="row">
+        
+                                    <div class="col-md-2 col-lg-2">
+                                        <div class="d-flex d-none mt-4 d-md-flex flex-row align-items-center">
+                                            <li class="nav-item" style="position: absolute;margin-left:400px;">
+                                                <a class="nav-link " href="{{ url('showcart') }}">
+                                                    <span class="shop-bag"><i class="fa-solid fa-cart-shopping"></i></span>
+                                                    [ {{ $count }} ]
+                                                </a>
+                                            </li>
+        
                                         </div>
                                     </div>
-                                </ul>
-                            </div>
-                        @endrole
+                                </div>
+                            </ul>
+                        </div>
+                    @endif
                         <li class="nav-item dropdown ">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -199,6 +215,7 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">
@@ -206,6 +223,7 @@
                                     {{ __('Logout') }}
                                 </a>
 
+                                {{-- <a class="dropdown-item" href="{{ route('productcategory.index') }}"> Product Category</a> --}}
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                     @csrf
                                 </form>
@@ -221,7 +239,7 @@
     @yield('content')
 
 
-
+    <script src="https://khalti.s3.ap-south-1.amazonaws.com/KPG/dist/2020.12.17.0.0.0/khalti-checkout.iffe.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="{{ asset('user/js/bootstrap.bundle.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/js/all.min.js"
@@ -231,12 +249,57 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-teletype-plugin/0.1.6/jquery.teletype.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
     <script defer src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script> --}}
 
 
     <script type="text/javascript" src="{{ asset('user/js/script.js') }}"></script>
     <script>
         AOS.init();
+    </script>
+    <script>
+        var config = {
+            // replace the publicKey with yours
+            "publicKey": "test_public_key_e235dccf7a894101ac91f143828e89db",
+            "productIdentity": "1234567890",
+            "productName": "Dragon",
+            "productUrl": "http://gameofthrones.wikia.com/wiki/Dragons",
+            "paymentPreference": [
+                "KHALTI"
+
+            ],
+            "eventHandler": {
+                onSuccess(payload) {
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ route('khalti.verifypayment') }}",
+                        data: {
+                            token: payload.token,
+                            amount: payload.amount,
+                            "_token": "{{ csrf_token() }}"
+                        },
+                        success: function(res) {
+                            console.log(res);
+                        }
+                    });
+                    console.log(payload);
+                },
+                onError(error) {
+                    console.log(error);
+                },
+                onClose() {
+                    console.log('widget is closing');
+                }
+            }
+        };
+
+        var checkout = new KhaltiCheckout(config);
+        var btn = document.getElementById("payment-button");
+        btn.onclick = function() {
+            // minimum transaction amount must be 10, i.e 1000 in paisa.
+            checkout.show({
+                amount: 1000
+            });
+        }
     </script>
     @stack('js')
 </body>

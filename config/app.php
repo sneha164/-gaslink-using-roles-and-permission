@@ -16,6 +16,8 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
+    'khalti_secret_key' => env('KHALTI_SECRET_KEY'),
+    'khalti_private_key' => env('KHALTI_PRIVATE_KEY'),
 
     /*
     |--------------------------------------------------------------------------

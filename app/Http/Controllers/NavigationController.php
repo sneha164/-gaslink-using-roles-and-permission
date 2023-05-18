@@ -8,14 +8,12 @@ class NavigationController extends Controller
 {
     public function index()
     {
-       
         return view('welcome');
     }
     public function about()
     {
         return view('user.about');
     }
-
     public function benefits()
     {
         return view('user.benefits');

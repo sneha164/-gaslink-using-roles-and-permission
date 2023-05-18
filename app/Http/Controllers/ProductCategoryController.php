@@ -15,10 +15,10 @@ class ProductCategoryController extends Controller
      */
     function __construct()
     {
-         $this->middleware('permission:productcategory-list|productcategory-create|productcategory-edit|productcategory-delete', ['only' => ['index','show']]);
-         $this->middleware('permission:productcategory-create', ['only' => ['create','store']]);
-         $this->middleware('permission:productcategory-edit', ['only' => ['edit','update']]);
-         $this->middleware('permission:productcategory-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:productcategory-list|productcategory-create|productcategory-edit|productcategory-delete', ['only' => ['index', 'show']]);
+        $this->middleware('permission:productcategory-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:productcategory-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:productcategory-delete', ['only' => ['destroy']]);
     }
     /**
      * Display a listing of the resource.
@@ -28,22 +28,22 @@ class ProductCategoryController extends Controller
     public function index()
     {
         $product_categories = ProductCategory::latest()->paginate(5);
-        return view('productcategory.index',compact('product_categories'))
+        return view('productcategory.index', compact('product_categories'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
-    
+
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    
-     public function create()
-     {
-         $product_categories = ProductCategory::all();
-         return view('productcategory.create', compact('product_categories'));
-     }
-    
+
+    public function create()
+    {
+        $product_categories = ProductCategory::all();
+        return view('productcategory.create', compact('product_categories'));
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -56,13 +56,13 @@ class ProductCategoryController extends Controller
             'title' => 'required',
             'description' => 'required',
         ]);
-    
+
         ProductCategory::create($request->all());
-    
+
         return redirect()->route('productcategory.index')
-                        ->with('success','Product category created successfully.');
+            ->with('success', 'Product category created successfully.');
     }
-    
+
     /**
      * Display the specified resource.
      *
@@ -71,10 +71,8 @@ class ProductCategoryController extends Controller
      */
     public function show(ProductCategory $productcategory)
     {
-     
-        return view('productcategory.show',compact('productcategory'));
+        return view('productcategory.show', compact('productcategory'));
     }
-    
     /**
      * Show the form for editing the specified resource.
      *
@@ -83,12 +81,11 @@ class ProductCategoryController extends Controller
      */
     public function edit(ProductCategory $productcategory)
     {
-        
         $productcategory = ProductCategory::find($productcategory->id);
-       
-        return view('productcategory.edit',compact('productcategory'));
+
+        return view('productcategory.edit', compact('productcategory'));
     }
-    
+
     /**
      * Update the specified resource in storage.
      *
@@ -98,17 +95,17 @@ class ProductCategoryController extends Controller
      */
     public function update(Request $request, ProductCategory $productcategory)
     {
-         request()->validate([
+        request()->validate([
             'title' => 'required',
             'description' => 'required',
         ]);
-    
+
         $productcategory->update($request->all());
-        
+
         return redirect()->route('productcategory.index')
-                        ->with('success','Product category updated successfully');
+            ->with('success', 'Product category updated successfully');
     }
-    
+
     /**
      * Remove the specified resource from storage.
      *
@@ -118,8 +115,8 @@ class ProductCategoryController extends Controller
     public function destroy(ProductCategory $productcategory)
     {
         $productcategory->delete();
-    
+
         return redirect()->route('productcategory.index')
-                        ->with('success','Product category deleted successfully');
+            ->with('success', 'Product category deleted successfully');
     }
 }

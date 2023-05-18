@@ -21,10 +21,7 @@
                                     Home
 
                                 </a>
-
                             </li>
-
-
                             <li class="nav-item mx-3">
                                 <a href="{{ route('user.about') }}"
                                     class="nav-link {{ Request::segment(1) == 'about' ? 'active' : '' }}">
@@ -42,11 +39,8 @@
                                 <a href="{{ route('user.services') }}"
                                     class="nav-link {{ Request::segment(1) == 'services' ? 'active' : '' }}">
                                     Services
-
                                 </a>
-
                             </li>
-
                             <li class="nav-item mx-3">
                                 <a href="{{ route('user.contact') }}"
                                     class="nav-link {{ Request::segment(1) == 'contact' ? 'active' : '' }}">
@@ -66,14 +60,11 @@
                         </li>
                     </div>
                 </div>
-
         </nav>
     </section>
     <!--section navigation end-->
     <!--section breadcrumb start-->
     <section class="breadcrumbs">
-
-
         <div class="d-flex text bg-light mt-5 p-5 justify-content-between align-items-center">
             <h2>About</h2>
             <ul>
@@ -81,11 +72,8 @@
                 <li class="mx-2">About</li>
             </ul>
         </div>
-
-
     </section>
     <!--section breadcrumb end-->
-
     <!--section about starts-->
     <section class="about" id="tab-about">
         <div class="container p-5 pb-0 ">
@@ -122,12 +110,10 @@
                 </div>
                 <div class="image col-lg-6 col-md-6 col-sm-12">
                     <img src="{{ asset('user/images/about.png') }}" width="100%" height="500px">
-
                 </div>
             </div>
         </div>
         </div>
-
     </section>
     <!--section banner end-->
     <!--section footer start-->
@@ -143,7 +129,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class=" col-lg-3 col-md-6 col-sm-12 pt-5">
                     <div class="useful">
                         <h5 class="px-4">About Us</h5>
@@ -207,12 +192,9 @@
                             </li>
                         </ul>
                     </div>
-
                 </div>
             </div>
         </div>
-
-
     </section>
     <!-- footer section end-->
     <section class="copyright">

@@ -13,10 +13,8 @@ return new class extends Migration
     {
         Schema::create('technicians', function (Blueprint $table) {
             $table->id();
-            $table->string('description');
-            $table->integer('rating');
-       
-         
+            $table->date('begin_date');
+            $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });
     }
