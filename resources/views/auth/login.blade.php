@@ -25,7 +25,7 @@
     <section class="login">
         <div class="container">
             <div class="row ">
-                <div class="image col-lg-6 col-md-6 col-sm-12  mt-5 ">
+                <div class="image col-lg-6 col-md-6 col-sm-12  mt-5">
                     <img src="{{ asset('user/images/bg.jpg') }}" width="100%" height="550px">
                 </div>
                 <div class=" form col-lg-6 col-md-6 col-sm-12 p-5 mt-5 ">

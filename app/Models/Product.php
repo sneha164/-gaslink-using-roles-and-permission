@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -27,6 +28,11 @@ class Product extends Model
     public function ratings()
     {
         return $this->hasMany(Rating::class);
+    }
+
+    public function order()
+    {
+        return $this->belongsTo(Order::class);
     }
     
 }

@@ -5,16 +5,7 @@ $('.type').teletype({
 
 
 
-		var cards = document.querySelectorAll('.card');
-		cards.forEach(function(card) {
-			card.addEventListener('mouseenter', function() {
-				card.querySelector('.btn').classList.remove('d-none');
-			});
-			card.addEventListener('mouseleave', function() {
-				card.querySelector('.btn').classList.add('d-none');
-			});
-		});
-
+	
 
 $(function() {
   // Owl Carousel

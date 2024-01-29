@@ -51,7 +51,7 @@
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
                             <strong>Image:</strong>
-                            <input type="text" name="image" value="{{ $product->image }}" class="form-control"
+                            <input type="file" name="image" value="{{ $product->image }}" class="form-control"
                                 placeholder="Image">
                         </div>
                     </div>

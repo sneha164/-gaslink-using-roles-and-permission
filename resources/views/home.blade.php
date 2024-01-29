@@ -14,7 +14,7 @@
                                                 <div class="title">Order</div>
                                                 <i class="fa-solid fa-arrow-up"
                                                     style="font-size: 30px; margin-left: 180px;"></i>
-                                                <div class="value">89</div>
+                                                <div class="value">{{ $orders->count() }}</div>
                                                 <div class="stat">
                                                     <b>13</b>
                                                     % increase
@@ -26,9 +26,9 @@
                                                 <div class="title">Product</div>
                                                 <i class="fa-solid fa-arrow-up"
                                                     style="font-size: 30px; margin-left: 180px;"></i>
-                                                <div class="value">5,990</div>
+                                                <div class="value">{{ $products->count() }}</div>
                                                 <div class="stat">
-                                                    <b>4</b>
+                                                    <b>25</b>
                                                     % increase
                                                 </div>
                                             </div>
@@ -50,7 +50,7 @@
                                                 <div class="title">new customers</div>
                                                 <i class="fa-solid fa-arrow-down"
                                                     style="font-size: 30px; margin-left: 180px;"></i>
-                                                <div class="value">3</div>
+                                                <div class="value">{{ $users->count() }}</div>
                                                 <div class="stat">
                                                     <b>13</b>
                                                     % decrease
@@ -67,11 +67,10 @@
         </section>
     @else
         @if (Auth::user()->hasRole('Admin'))
-
         @elseif(Auth::user()->hasRole('Technician'))
         @else
             <section>
-                {{-- <div class="search"
+                <div class="search"
                     style="position: absolute;
                     z-index: 9999;
                     margin-left: 640px;
@@ -79,7 +78,7 @@
                     <ul class="navbar-nav">
                         <div class="row">
 
-                            <div class="col-md-2 col-lg-2">
+                            <div style="position: fixed;">
                                 <div class="d-flex d-none mt-4 d-md-flex flex-row align-items-center">
                                     <li class="nav-item" style="position: absolute;margin-left:400px;">
                                         <a class="nav-link " href="{{ url('showcart') }}">
@@ -92,7 +91,7 @@
                             </div>
                         </div>
                     </ul>
-                </div> --}}
+                </div>
             </section>
             <!--section background starts-->
             <section class="background" style="margin-top: 0px" id="tab-background">
@@ -143,19 +142,19 @@
                                 @foreach ($products as $item)
                                     <div class="col-lg-3 col-md-6 col-sm-12">
                                         <div class="card mb-5 mt-5">
-                                            <img src="{{ asset('storage/images/products/' . $item->image) }}"
+                                            <img src="{{ asset('storageofproduct/images/products/' . $item->image) }}"
                                                 alt="{{ $item->image }}" height="200px" class="card-img-top">
                                             <div class="card-body text-center bg-light">
                                                 <h3 class="card-title ">{{ $item->name }}</h3>
-                                                <h6>Rs:{{ $item->price }}</h6>
-                                                
+                                                <h6 >Rs:{{ $item->price }}</h6>
+
                                                 <form action="{{ url('addcart', $item->id) }}" method="POST">
                                                     @csrf
                                                     <div class="row">
-                                                        <div class="col-md-4">
+                                                        <div class="col-md-4" style="width:110px;">
                                                             <input type="number" value="1" min="1"
                                                                 class="form-control"
-                                                                style="width:100px; background: #1f4975; color: white; margin-left: 30px;"
+                                                                style=" background: #1f4975; color: white; margin-left: 30px;"
                                                                 name="quantity">
                                                         </div>
                                                         <div class="col-md-4">
@@ -168,46 +167,6 @@
                                                     </div>
                                                 </form>
                                             </div>
-                                            <form method="POST" action="{{ route('ratings.store', $item) }}">
-                                                @csrf
-                                                <div class="form-group">
-                                                    <div class="col-md-4">
-                                                        <input type="number" name="rating" value="1" min="1" max="5"
-                                                            class="form-control"
-                                                            style="width:100px; background: #1f4975; color: white; margin-left: 30px;"
-                                                            name="quantity">
-                                                    </div>
-                                                </div>
-                                                <button type="submit" class="btn btn-primary">rate</button>
-                                            </form>
-                                            {{ $item->ratings->avg('rating') }}
-                                            @php
-                                                $avgRating = $item->ratings->avg('rating');
-                                            @endphp
-                                            <div class="rating">
-                                                @for($i = 1; $i <= 5; $i++)
-                                                    <span class="star{{ $i <= $avgRating ? ' active' : '' }}">
-                                                        <i class="fas fa-star"></i>
-                                                     </span>
-                                                @endfor
-                                            </div>
-                                            <ul class="list-unstyled d-flex justify-content-center mb-0">
-                                                <li>
-                                                    <i class="fas fa-star fa-sm text-warning"></i>
-                                                </li>
-                                                <li>
-                                                    <i class="fas fa-star fa-sm text-warning"></i>
-                                                </li>
-                                                <li>
-                                                    <i class="fas fa-star fa-sm text-warning"></i>
-                                                </li> 
-                                                <li>
-                                                    <i class="fas fa-star fa-sm text-warning"></i>
-                                                </li>
-                                                <li>
-                                                    <i class="fas fa-star-half-alt fa-sm text-warning"></i>
-                                                </li>
-                                            </ul>
                                         </div>
                                     </div>
                                 @endforeach
@@ -218,7 +177,7 @@
             </section>
             <!--Specialities section end-->
             <!--Specialities section end-->
-            <section class="technician" id="tab-technician">
+            <section class="technician" id="tab-technician" style="height: 700px;">
                 <div class="technician-bg">
                     <div class="container-fluid">
                         <h1 class="text-center p-3">Technicians</h1>
@@ -230,7 +189,7 @@
                         <div class="container">
                             <div class="row text-center p-2 d-flex ">
                                 @foreach (App\Models\User::role('Technician')->get() as $user)
-                                    <div class=" col-lg-3 col-md-4 mb-md-0 d-flex " >
+                                    <div class=" col-lg-3 col-md-4 mb-md-0 d-flex ">
                                         <div class="card technician-card" style="width: 100%;">
                                             <div class="card-up"></div>
                                             <div class="avatar mx-auto " style="margin-top: -50px;">
@@ -240,23 +199,24 @@
                                             <div class="card-body " style="margin-top: -10px">
                                                 <h4>{{ $user->name }}</h4>
                                                 <p>{{ $user->address }}</p>
-                                               
+
                                                 <hr>
-                                                <p>{{ $user->phone }}</p> 
+                                                <p>{{ $user->phone }}</p>
                                                 @foreach ($user->feedbacks() as $feedback)
                                                     <p class="dark-grey-text mt-4">
                                                         <i class="fas fa-quote-left pe-2"></i>
                                                         {{ $feedback->message }}
                                                     </p>
-                                                @endforeach 
+                                                @endforeach
                                                 <div>
-                                                    @if(!Auth::user()->hasRole('Technician'))
+                                                    @if (!Auth::user()->hasRole('Technician'))
                                                         <form method="post" action="{{ route('feedback') }}">
                                                             @csrf
                                                             <div class="col-xs-12 col-sm-12 col-md-12"
                                                                 style="width: 50%;
                                                                 margin-left: 80px;">
-                                                                <input type="hidden" name="user_id" value="{{ Auth::id() }}" >
+                                                                <input type="hidden" name="user_id"
+                                                                    value="{{ Auth::id() }}">
                                                             </div>
                                                             <textarea name="message"></textarea>
                                                             <input type="submit" value="post">
@@ -264,24 +224,23 @@
                                                         </form>
                                                     @endif
                                                 </div>
-                                                    <form action="{{ route('hire') }}" method="POST">
-                                                        @csrf
-                                                        <div class="col-xs-12 col-sm-12 col-md-12"
-                                                            style="width: 50%;
+                                                <form action="{{ route('hire') }}" method="POST">
+                                                    @csrf
+                                                    <div class="col-xs-12 col-sm-12 col-md-12"
+                                                        style="width: 50%;
                                                             margin-left: 80px;">
-                                                            <input type="hidden" name="user_id"
-                                                                value="{{ Auth::id() }}">
-                                                            <div class="form-group">
-                                                                <strong>Wanna Hire me?</strong>
-                                                                <input type="date" name="begin_date"
-                                                                    class="form-control">
-                                                            </div>
+                                                        <input type="hidden" name="user_id"
+                                                            value="{{ Auth::id() }}">
+                                                        <div class="form-group">
+                                                            <strong>Wanna Hire me?</strong>
+                                                            <input type="date" name="begin_date" class="form-control">
                                                         </div>
-                                                        <div class="col-xs-12 col-sm-12 col-md-12 text-center submit">
-                                                             
-                                                            <button type="submit" class="btn btn-primary">Hire</button>
-                                                        </div>
-                                                    </form>
+                                                    </div>
+                                                    <div class="col-xs-12 col-sm-12 col-md-12 text-center submit">
+
+                                                        <input type="submit" class="btn btn-primary" value="Hire">
+                                                    </div>
+                                                </form>
                                             </div>
                                             @if ($errors->any())
                                                 <div class="alert alert-danger">

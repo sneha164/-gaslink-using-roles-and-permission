@@ -24,7 +24,7 @@
     <section class=" register ">
         <div class="container">
             <div class="row ">
-                <div class=" form col-lg-6 col-md-6 col-sm-12  mt-5 ">
+                <div class=" form col-lg-6 col-md-6 col-sm-12  mt-4 ">
                     <h1 class=" text-center">Create Account</h1>
                     <p class="text-center">Get started with your free account</p>
                     <p class="bottom">
@@ -116,7 +116,7 @@
                         </p>
                     </form>
                 </div>
-                <div class="image col-lg-6 col-md-6 col-sm-12 mt-5 bg-white">
+                <div class="image col-lg-6 col-md-6 col-sm-12 mt-4 bg-white">
                     <img src="{{ asset('user/images/screen.jpg') }}" width="100%" height="550px">
                 </div>
             </div>

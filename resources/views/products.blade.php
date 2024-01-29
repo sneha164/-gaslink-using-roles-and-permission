@@ -1,5 +1,29 @@
 @extends('layouts.app')
 @section('content')
+<section>
+    <div class="search"
+        style="position: absolute;
+        z-index: 9999;
+        margin-left: 640px;
+        margin-top: -120px;">
+        <ul class="navbar-nav">
+            <div class="row">
+
+                <div style="position: fixed;">
+                    <div class="d-flex d-none mt-4 d-md-flex flex-row align-items-center">
+                        <li class="nav-item" style="position: absolute;margin-left:400px;">
+                            <a class="nav-link " href="{{ url('showcart') }}">
+                                <span class="shop-bag"><i class="fa-solid fa-cart-shopping"></i></span>
+                                [ {{ $count }} ]
+                            </a>
+                        </li>
+
+                    </div>
+                </div>
+            </div>
+        </ul>
+    </div>
+</section>
     <div class="search" style="margin-top: 150px;">
         <form method="GET" action="{{ route('product_search') }}"
             style="display: flex; margin-left: 600px;margin-top: 20px;">
@@ -21,11 +45,11 @@
                 @foreach ($products as $item)
                     <div class="col-lg-3 col-md-6 col-sm-12">
                         <div class="card mb-5 mt-4">
-                            <img src="{{ asset('storage/images/products/' . $item->image) }}" alt="{{ $item->image }}"
+                            <img src="{{ asset('storageofproduct/images/products/' . $item->image) }}" alt="{{ $item->image }}"
                                 height="200px" class="card-img-top">
                             <div class="card-body text-center bg-light">
-                                <h3 class="card-title ">{{ $item->name }}</h3>
-                                <h6>RS:{{ $item->price }}</h6>
+                                <h3 class="card-title " style="color: #1f4975;">{{ $item->name }}</h3>
+                                <h6 style="color:  #f16038;">RS:{{ $item->price }}</h6>
                                 <form action="{{ url('addcart', $item->id) }}" method="POST">
                                     @csrf
                                     <div class="row">

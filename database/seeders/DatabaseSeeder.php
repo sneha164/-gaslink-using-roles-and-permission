@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // \App\Models\Product::factory(10)->create();
-        \App\Models\User::factory(10)->create();
+        //\App\Models\User::factory(10)->create();
         $user_tech = User::create([
             'name' => 'Technician',
             'email' => 'technician@gmail.com',
@@ -49,10 +49,7 @@ class DatabaseSeeder extends Seeder
         ]);
         $tech = ModelsRole::create(['name' => 'Technician']);
 
-        $per = Permission::create([
-            'name' => 'technician-create'],
-            ['name' => 'technician-edit'],
-            ['name' => 'technician-delete'],
+        $per = Permission::create(
             ['name'=> 'technician-list']
         );
 

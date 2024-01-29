@@ -28,7 +28,7 @@
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong>Image:</strong>
-                        <img src="{{ asset('storage/images/products/' . $product->image) }}" alt="{{ $product->image }}"
+                        <img src="{{ asset('storageofproduct/images/products/' . $product->image) }}" alt="{{ $product->image }}"
                             height="100" width="100">
                     </div>
                 </div>

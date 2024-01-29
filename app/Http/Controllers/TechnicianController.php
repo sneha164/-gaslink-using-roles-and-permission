@@ -21,10 +21,6 @@ class TechnicianController extends Controller
         return view('technician.index', compact('technicians'));
     }
 
-    public function show(Technician $technician)
-    {
-        return view('technician.show', compact('technician'));
-    } 
 
 }
 

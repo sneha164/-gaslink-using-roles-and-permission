@@ -117,7 +117,7 @@
                         <h4> Convenient</h4>
                     </li>
                 </ul>
-                <div class="bottom mt-4">
+                <div class="bottom mt-4" style="height: 50px;">
                     <a class="nav-link" href="{{ route('login') }}"> Book Now</a>
                 </div>
             </div>
@@ -298,7 +298,7 @@
                             @foreach (\App\Models\Product::all() as $item)
                                 <div class="card mb-4">
 
-                                    <img src="{{ asset('storage/images/products/' . $item->image) }}"
+                                    <img src="{{ asset('storageofproduct/images/products/' . $item->image) }}"
                                         alt="{{ $item->image }}" height="200px" class="card-img-top">
                                     <div class="card-body text-center bg-light">
                                         <h3 class="card-title ">{{ $item->name }}</h3>
@@ -326,7 +326,7 @@
                 <div data-aos="fade-up">
                     <div class="row text-center  p-2 d-flex">
                         @foreach (\App\Models\User::role('Technician')->get() as $technician)
-                            <div class=" col-lg-3 col-md-4 mb-md-0 d-flex align-items-stretch">
+                            <div class=" col-lg-3 col-md-4 mb-md-0 d-flex ">
 
                                 <div class="card technician-card">
                                     <div class="card-up">
@@ -435,7 +435,7 @@
                         <ul class="px-3">
                             <li>
                                 <i class="fa-solid fa-envelope " style="color: rgb(216 117 70)"></i>
-                                gasbooking@gmail.com
+                                gaslink@gmail.com
                             </li>
                             <li>
                                 <i class="fa-solid fa-phone " style="color:rgb(216 117 70)"></i>
@@ -443,7 +443,7 @@
                             </li>
                             <li>
                                 <i class="fa-solid fa-earth-americas " style="color:rgb(216 117 70)"></i>
-                                www.gasbookingsystem.com.np
+                                www.gaslink.com.np
                             </li>
                             <li>
                                 <i class="fa-solid fa-map " style="color:rgb(216 117 70)"></i>

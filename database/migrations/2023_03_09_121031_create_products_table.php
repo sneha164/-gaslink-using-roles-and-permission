@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name')->nullable();
             $table->unsignedBigInteger('category_id')->nullable();
             $table->string('price')->nullable();
-            $table->string('quantity')->nullable();
+            $table->integer('quantity')->nullable();
             $table->string('image')->nullable();
             $table->foreign('category_id')->references('id')->on('product_categories')->onDelete('cascade');
             // $table->foreignId('vendor_id')->constrainted('vendors');

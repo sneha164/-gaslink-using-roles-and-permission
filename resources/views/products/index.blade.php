@@ -35,7 +35,7 @@
                         <td>{{ ++$i }}</td>
                         <td>{{ $product->name }}</td>
                         <td>{{ $product->category_id }}</td>
-                        <td> <img src="{{ asset('storage/images/products/' . $product->image) }}"
+                        <td> <img src="{{ asset('storageofproduct/images/products/' . $product->image) }}"
                                 alt="{{ $product->image }}" height="100" width="100"> </td>
                         <td>{{ $product->price }}</td>
                         <td>{{ $product->quantity }}</td>

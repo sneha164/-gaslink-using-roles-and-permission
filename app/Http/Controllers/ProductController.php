@@ -29,7 +29,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::latest()->paginate(5);
+        $products = Product::latest()->paginate(8);
         return view('products.index',compact('products'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
@@ -62,17 +62,18 @@ class ProductController extends Controller
             'quantity' => 'required',
             
         ]);
-            $input =$request->all();
-            if($request->hasFile('image'))
-            {
+        $input = $request->all();
+        $input['quantity'] = (int) $input['quantity'];
+        if($request->hasFile('image'))
+        {
 
-                $destination_path = 'public/images/products';
-                $image = $request->file('image');
-                $image_name = $image->getClientOriginalName();       
-                $path = $request->file('image')->storeAs($destination_path,$image_name); 
-                $input['image'] = $image_name;
-                
-            }
+            $destination_path = 'public/images/products';
+            $image = $request->file('image');
+            $image_name = $image->getClientOriginalName();       
+            $path = $request->file('image')->storeAs($destination_path,$image_name); 
+            $input['image'] = $image_name;
+            
+        }
         Product::create($input);
 
         return redirect()->route('products.index')

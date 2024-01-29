@@ -27,7 +27,7 @@ class ProductCategoryController extends Controller
      */
     public function index()
     {
-        $product_categories = ProductCategory::latest()->paginate(5);
+        $product_categories = ProductCategory::latest()->paginate(8);
         return view('productcategory.index', compact('product_categories'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }

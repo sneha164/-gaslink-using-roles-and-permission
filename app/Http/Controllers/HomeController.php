@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\Technician;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -29,13 +30,39 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
-    {
+    {       
         $user = auth()->user();
+        $users = User::all();
         $count = Cart::where('phone', $user->phone)->count();
         $products = Product::all();
-        return view('home', compact('products','user'), ['count' => $count]);
+        $orders = Order::all();
+        return view('home', compact('products','user','users','orders'), ['count' => $count]);
     }
 
+    // public function pricePercent()
+    // {
+    //     $dateFrom = Carbon::now()->subDays(30); 
+    //     $dateTo = Carbon::now();
+    //     $monthly = Order::whereBetween('created_at', [$dateFrom, $dateTo])->sum('price');
+        
+    //     $previousDateFrom = Carbon::now()->subDays(60);
+    //     $previousDateTo = Carbon::now()->subDays(31);
+    //     $previousMonthly = Order::whereBetween('created_at', [$previousDateFrom,$previousDateTo])->sum('price');
+        
+    //     if($previousMonthly < $monthly){
+    //         if($previousMonthly > 0){
+    //             $percent_from = $monthly - $previousMonthly;
+    //             $percent = $percent_from / $previousMonthly * 100; //increase percent
+    //         }else{
+    //             $percent = 100; //increase percent
+    //         }
+    //     }else{ 
+    //         $percent_from = $previousMonthly -$monthly;
+    //         $percent = $percent_from / $previousMonthly * 100; //decrease percent
+    //     }
+
+    //     return $percent;
+    // }
 
     public function addcart(Request $request, $id)
 
@@ -89,10 +116,12 @@ class HomeController extends Controller
         DB::table('carts')->where('phone', $phone)->delete();
         return redirect()->back()->with('message', 'Product Ordered Successfully');
     }
+    
 
     public function products()
     {
-        $products = Product::all();$user = auth()->user();
+        $products = Product::all();
+        $user = auth()->user();
         $count = Cart::where('phone', $user->phone)->count();
         return view('products', ['products'=> $products], ['count'=> $count]);
     }
@@ -105,18 +134,15 @@ class HomeController extends Controller
         $count = Cart::where('phone', $user->phone)->count();
         $query = Product::query();
 
-        // Apply filters
+        
         if ($request->has('search')) {
             $query->where('name', 'like', '%'.$request->input('search').'%');    
         }
-        //Apply category filter
+
         if ($request->has('category')) {
             $query->where('category_id', $request->input('category'));
         }
-        // Retrieve filtered data
         $products = $query->get();
-
-        // Return response
         return view('products', compact('products','count'));
 
 
@@ -134,4 +160,6 @@ class HomeController extends Controller
         return redirect()->route('home')->with('success','Technician Hire Successfully.');
 
     }
+
+    
 }

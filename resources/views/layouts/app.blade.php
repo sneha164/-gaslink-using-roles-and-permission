@@ -24,13 +24,14 @@
         crossorigin="anonymous" referrerpolicy="no-referrer">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
-    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"> --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
     @stack('css')
 
     <!-- Scripts -->
+    <script src="https://khalti.s3.ap-south-1.amazonaws.com/KPG/dist/2020.12.17.0.0.0/khalti-checkout.iffe.js"></script>
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <style>
         .collapse .navbar-nav .nav-link {
@@ -171,43 +172,49 @@
                             </li>
                         @endif
                     @else
-                        
-                    @if(Auth::user()->hasRole('Vendor'))
-                        <li><a class="nav-link" href="{{ route('admin.showorder') }}"> Orders</a></li>
-                        <li><a class="nav-link" href="{{ route('products.index') }}"> Product</a></li>
-                        <li><a class="nav-link" href="{{ route('productcategory.index') }}"> Product Category</a></li>
-
-                    @elseif(Auth::user()->hasRole('Admin'))
-                        <li><a class="nav-link" href="{{ route('roles.index') }}">Roles</a></li>
-                        <li><a class="nav-link" href="{{ route('users.index') }}">Users</a></li>
-                    
-                    @elseif(Auth::user()->hasRole('Technician'))
-                        <li><a class="nav-link" href="{{ route('technician.index') }}">Hires</a></li>
-                    @else
-                           
-                        <div class="search"
-                            style="position: absolute;
+                        @if (Auth::user()->hasRole('Vendor'))
+                            {{-- <li><a class="nav-link" href="{{ route('admin.index') }}">Report</a></li> --}}
+                            <li><a class="nav-link {{ Request::segment(1) == '' ? 'active' : '' }}"
+                                    href="{{ route('admin.chart') }}">Report</a></li>
+                            <li><a class="nav-link {{ Request::segment(1) == '' ? 'active' : '' }}"
+                                    href="{{ route('admin.showorder') }}"> Orders</a></li>
+                            <li><a class="nav-link {{ Request::segment(1) == '' ? 'active' : '' }}"
+                                    href="{{ route('products.index') }}"> Product</a></li>
+                            <li><a class="nav-link{{ Request::segment(1) == '' ? 'active' : '' }}"
+                                    href="{{ route('productcategory.index') }}"> Product Category</a></li>
+                        @elseif(Auth::user()->hasRole('Admin'))
+                            <li><a class="nav-link {{ Request::segment(1) == '' ? 'active' : '' }}"
+                                    href="{{ route('roles.index') }}">Roles</a></li>
+                            <li><a class="nav-link {{ Request::segment(1) == '' ? 'active' : '' }}"
+                                    href="{{ route('users.index') }}">Users</a></li>
+                        @elseif(Auth::user()->hasRole('Technician'))
+                            <li><a class="nav-link {{ Request::segment(1) == '' ? 'active' : '' }}"
+                                    href="{{ route('technician.hire') }}">Hires</a></li>
+                        @else
+                            <div class="search"
+                                style="position: absolute;
                             z-index: 9999;
                             margin-left: 640px;
-                            margin-top: 30px;"> 
-                            <ul class="navbar-nav">
-                                <div class="row">
-        
-                                    <div class="col-md-2 col-lg-2">
-                                        <div class="d-flex d-none mt-4 d-md-flex flex-row align-items-center">
-                                            <li class="nav-item" style="position: absolute;margin-left:400px;">
-                                                <a class="nav-link " href="{{ url('showcart') }}">
-                                                    <span class="shop-bag"><i class="fa-solid fa-cart-shopping"></i></span>
-                                                    [ {{ $count }} ]
-                                                </a>
-                                            </li>
-        
+                            margin-top: 30px;">
+                                <ul class="navbar-nav">
+                                    <div class="row">
+
+                                        <div class="col-md-2 col-lg-2">
+                                            <div class="d-flex d-none mt-4 d-md-flex flex-row align-items-center">
+                                                <li class="nav-item" style="position: absolute;margin-left:400px;">
+                                                    <a class="nav-link " href="{{ url('showcart') }}">
+                                                        <span class="shop-bag"><i
+                                                                class="fa-solid fa-cart-shopping"></i></span>
+                                                        [ {{ $count }} ]
+                                                    </a>
+                                                </li>
+
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </ul>
-                        </div>
-                    @endif
+                                </ul>
+                            </div>
+                        @endif
                         <li class="nav-item dropdown ">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -215,7 +222,6 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">
@@ -239,7 +245,7 @@
     @yield('content')
 
 
-    <script src="https://khalti.s3.ap-south-1.amazonaws.com/KPG/dist/2020.12.17.0.0.0/khalti-checkout.iffe.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="{{ asset('user/js/bootstrap.bundle.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/js/all.min.js"
@@ -248,7 +254,7 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-teletype-plugin/0.1.6/jquery.teletype.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-    <script defer src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
     {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script> --}}
 
 
@@ -256,6 +262,7 @@
     <script>
         AOS.init();
     </script>
+
     <script>
         var config = {
             // replace the publicKey with yours
@@ -264,11 +271,13 @@
             "productName": "Dragon",
             "productUrl": "http://gameofthrones.wikia.com/wiki/Dragons",
             "paymentPreference": [
-                "KHALTI"
+                "KHALTI",
 
             ],
             "eventHandler": {
                 onSuccess(payload) {
+
+                    // hit merchant api for initiating verfication
                     $.ajax({
                         type: 'POST',
                         url: "{{ route('khalti.verifypayment') }}",
@@ -278,10 +287,19 @@
                             "_token": "{{ csrf_token() }}"
                         },
                         success: function(res) {
+                            $.ajax({
+                                type: 'POST',
+                                url: "{{ route('khalti.storepayment') }}",
+                                data: {
+                                    response: res,
+                                    "_token": "{{ csrf_token() }}"
+                                }
+                            });
                             console.log(res);
                         }
                     });
                     console.log(payload);
+
                 },
                 onError(error) {
                     console.log(error);

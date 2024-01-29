@@ -24,6 +24,7 @@ class PaymentController extends Controller
         curl_setopt($ch, CURLOPT_POSTFIELDS, $args);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         $secret_key = "test_secret_key_f7aa48b6da8841ddbf9d5e8e60f14ce7";
+
         $headers = ["Authorization: Key $secret_key"];
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
@@ -32,5 +33,10 @@ class PaymentController extends Controller
         $status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
         return $response;
+    }
+
+    public function storepayment(Request $request)
+    {
+
     }
 }

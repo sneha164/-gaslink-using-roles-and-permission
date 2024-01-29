@@ -621,7 +621,7 @@ color: #0b3477;
     background-repeat: no-repeat;
     width: 100%;
     background-attachment: fixed;
-    height:720px;
+    height:500px;
 }
 
 .technician .card:hover {
@@ -636,6 +636,9 @@ color: #0b3477;
 
 .technician .technician-card .card-up {
     background-color: #969fcf;
+}
+.technician-card{
+    width: 100%;
 }
 
 .technician h1 {
